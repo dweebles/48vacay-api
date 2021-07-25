@@ -9,7 +9,7 @@
 // const firestore = admin.firestore();
 const path = require("path");
 const fs = require("fs");
-const { v4: uuidv4 } require('uuid');
+const { v4: uuidv4 } = require('uuid');
 const directoryPath = path.join(__dirname, "cities");
 
 fs.readdir(directoryPath, function(err, files) {
@@ -18,22 +18,22 @@ fs.readdir(directoryPath, function(err, files) {
   }
 
   files.forEach(function(file) {
-    console.log(JSON.stringify(file))
-    // var lastDotIndex = file.lastIndexOf(".");
+    var lastDotIndex = file.lastIndexOf(".");
 
-    // var menu = require("./files/" + file);
+    var venue = require("./cities/" + file);
 
-    // menu.forEach(function(obj) {
-    //   firestore
-    //     .collection('venues')
-    //     .doc(uuidv4())
-    //     .set(obj)
-    //     .then(function(docRef) {
-    //       console.log("Document written");
-    //     })
-    //     .catch(function(error) {
-    //       console.error("Error adding document: ", error);
-    //     });
-    // });
+    venue.forEach(function(obj) {
+      console.log(JSON.stringify(obj))
+      // firestore
+      //   .collection('venues')
+      //   .doc(uuidv4())
+      //   .set(obj)
+      //   .then(function(docRef) {
+      //     console.log("Document written");
+      //   })
+      //   .catch(function(error) {
+      //     console.error("Error adding document: ", error);
+      //   });
+    });
   });
 });
