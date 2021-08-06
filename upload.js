@@ -10,7 +10,7 @@
 const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require('uuid');
-const directoryPath = path.join(__dirname, "cities");
+const directoryPath = path.join(__dirname, "data/json/cities");
 
 fs.readdir(directoryPath, function(err, files) {
   if (err) {
@@ -20,7 +20,7 @@ fs.readdir(directoryPath, function(err, files) {
   files.forEach(function(file) {
     var lastDotIndex = file.lastIndexOf(".");
 
-    var venue = require("./cities/" + file);
+    var venue = require(directoryPath+'/' + file);
 
     venue.forEach(function(obj) {
       console.log(JSON.stringify(obj))
