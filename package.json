@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "venues": "node upload.js"
+    "upload": "node upload.js"
   },
   "dependencies": {
-    "firebase": "^6.6.2",
-    "firebase-admin": "^8.9.2",
+    "firebase": "*",
+    "firebase-admin": "*",
     "uuid": "^7.0.3"
   },
   "repository": {
