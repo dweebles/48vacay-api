@@ -1,39 +1,44 @@
-// var admin = require("firebase-admin"),
-//     serviceAccount = require("./service_key.json");
-
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   databaseURL: "YOUR_PROJECT_LINK"
-// });
-
-// const firestore = admin.firestore();
 const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require('uuid');
 const directoryPath = path.join(__dirname, "data/json/cities");
 
+// Firebase Setup
+const admin = require("firebase-admin");
+const serviceAccount = require("./config/firebase-config.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseUrl: "https://poetic-genius-285622.firebaseio.com"
+});
+
+const firestore = admin.firestore();
+const settings = {timestampsInSnapshots: true};
+
+firestore.settings(settings);
+
+// The magic Loop
 fs.readdir(directoryPath, function(err, files) {
   if (err) {
     return console.log("Unable to scan directory: " + err);
   }
 
   files.forEach(function(file) {
-    var lastDotIndex = file.lastIndexOf(".");
-
-    var venue = require(directoryPath+'/' + file);
+    const lastDotIndex = file.lastIndexOf(".");
+    const venue = require(directoryPath+'/' + file);
 
     venue.forEach(function(obj) {
-      console.log(JSON.stringify(obj))
-      // firestore
-      //   .collection('venues')
-      //   .doc(uuidv4())
-      //   .set(obj)
-      //   .then(function(docRef) {
-      //     console.log("Document written");
-      //   })
-      //   .catch(function(error) {
-      //     console.error("Error adding document: ", error);
-      //   });
+      const genID = uuidv4();
+      
+      firestore.collection("venues")
+        .doc(genID)
+        .set(obj)
+        .then((res) => {
+          console.log(obj.name + " was successfully added to database!");
+        })
+        .catch((error) => {
+          console.error("Error writing document: ", error);
+        });
     });
   });
 });
