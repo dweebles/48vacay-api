@@ -1,3 +1,6 @@
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+
 from glob import glob
 import pandas as pd
 
@@ -9,4 +12,4 @@ dfList_venues = [pd.DataFrame(pd.read_csv(file, usecols=['name', 'rating', 'lati
 for (idx, df) in enumerate(dfList_venues):
     df.to_json("json/{}.json".format(idx), orient="records", date_format="epoch",
                       double_precision=10, force_ascii=True, date_unit="ms", default_handler=None)
-    print(df)
+    print('-->', df, 'Parse Success ✓', sep='\n')

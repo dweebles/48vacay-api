@@ -31,17 +31,17 @@ fs.readdir(directoryPath, function (err, files) {
 
       // Missing categories data
       if (obj.categories === null || obj.categories.length <= 1) {
-        console.log("Skipping ->" + obj.name + ": Missing categories data");
+        console.error("Skipping ->" + obj.name + ": Missing categories data");
         return;
       }
       // Missing description data
       if (obj.description_text === null || obj.description_text.length <= 1) {
-        console.log("Skipping ->" + obj.name + ": Missing description_text data");
+        console.error("Skipping ->" + obj.name + ": Missing description_text data");
         return;
       }
       // Missing media data
       if (obj.media_landscape === null || obj.media_landscape.length <= 1 || obj.media_portrait === null || obj.media_portrait <= 1) {
-        console.log("Skipping ->" + obj.name + ": Missing media data");
+        console.error("Skipping ->" + obj.name + ": Missing media data");
         return;
       }
 
